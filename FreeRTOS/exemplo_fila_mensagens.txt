@@ -1,0 +1,86 @@
+/**
+ * Exemplo para ilustrar o funcionamento de uma fila de mensagens.
+ */
+
+#include "FreeRTOS.h"
+#include "task.h"
+#include "queue.h"
+
+// Dado a ser enviado para a fila
+typedef struct msg {
+    unsigned int vezes;
+    unsigned int tempo;
+} msg_t;
+
+
+// Declaração da fila
+QueueHandle_t fila_mensagens;
+
+// Definição das tarefas
+void tarefa_1();
+void tarefa_2();
+
+void config_tasks();
+void toggle_led();
+
+int main()
+{
+    config_tasks();
+    
+    // Criação da fila
+    fila_mensagens = xQueueCreate(3, sizeof(msg_t));
+    
+    xTaskCreate(tarefa_1, "T1", 128, NULL, 3, NULL);
+    xTaskCreate(tarefa_2, "T2", 128, NULL, 3, NULL);
+    
+    vTaskStartScheduler();
+    
+    while (1);
+    
+    return 0;
+}
+
+// Implementação das tarefas
+void tarefa_1()
+{
+    // Dados a serem enviados (tempo e ticks)
+    unsigned int dados[10] = {10, 10, 7, 20, 15, 5, 12, 20, 5, 10}, i = 0;
+    msg_t mensagem_enviada;
+    
+    while (1) {        
+        LATCbits.LATC1 = ~PORTCbits.RC1;
+        mensagem_enviada.vezes = dados[i];
+        mensagem_enviada.tempo = dados[i+1];
+        
+        // Enviar mensagem
+        xQueueSend(fila_mensagens, &mensagem_enviada, portMAX_DELAY);
+        
+        i = (i+2) % 10;        
+    }
+}
+
+void tarefa_2()
+{
+    msg_t mensagem_recebida;
+    
+    while (1) {
+        LATCbits.LATC2 = ~PORTCbits.RC2;
+        xQueueReceive(fila_mensagens, &mensagem_recebida, portMAX_DELAY);
+        for (int i = 0; i < mensagem_recebida.vezes; i++) {
+            toggle_led();
+            vTaskDelay(pdMS_TO_TICKS(mensagem_recebida.tempo));
+        }
+    }
+}
+
+void config_tasks()
+{
+    TRISCbits.TRISC1 = 0;
+    TRISCbits.TRISC2 = 0;
+    TRISCbits.TRISC3 = 0;   
+}
+
+void toggle_led()
+{
+    LATCbits.LATC3 = ~PORTCbits.RC3;
+}
