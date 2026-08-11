@@ -1,0 +1,1 @@
+# Material das aulas da disciplina de Sistemas Operacionais Embarcados (DEC7562) ofertada ao curso de graduação em Engenharia de Computação da UFSC/Campus Araranguá.
