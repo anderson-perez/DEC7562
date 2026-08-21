@@ -1,6 +1,6 @@
 #include <xc.h>
 
-void __attribute__ ((__interrupt__, no_auto_psv)) _INT0Interrupt(void);
+void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void);
 void config_int0();
 void config_ports();
 
@@ -23,7 +23,7 @@ int main()
     return 0;
 }
 
-void __attribute__ ((__interrupt__, no_auto_psv)) _INT0Interrupt(void)
+void __attribute__ ((interrupt, no_auto_psv)) _INT0Interrupt(void)
 {
     IFS0bits.INT0IF = 0;
     task_running = (task_running+1) % 3;

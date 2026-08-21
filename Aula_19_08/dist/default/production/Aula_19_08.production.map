@@ -205,9 +205,9 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xb0d
+.debug_info       0x000000        0xb02
  *(.debug_info)
- .debug_info      0x000000        0xb0d build/default/production/main.o
+ .debug_info      0x000000        0xb02 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
 .debug_abbrev     0x000000        0x166
