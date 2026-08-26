@@ -64,11 +64,11 @@ Default Scalar Model: Small
 
 section                    address   length (PC units)   length (bytes) (dec)
 -------                    -------   -----------------   --------------------
-.text                        0x200                0xf2           0x16b  (363)
-.text                        0x2f2                0xdc           0x14a  (330)
-.dinit                       0x3ce                 0xe            0x15  (21)
+.text                        0x200                0xfa           0x177  (375)
+.text                        0x2fa               0x19c           0x26a  (618)
+.dinit                       0x496                 0xe            0x15  (21)
 
-                 Total "program" memory used (bytes):          0x2ca  (714) <1%
+                 Total "program" memory used (bytes):          0x3f6  (1014) <1%
 
 
 "data" Memory  [Origin = 0x800, Length = 0x2000]
@@ -111,31 +111,37 @@ External Symbols in Program Memory (by address):
                   0x00023c                  __psv_init
                   0x000252                  __data_init_standard
                   0x000252                  __data_init
-                  0x0002c8                  __T1Interrupt
-                  0x0002ec                  __DefaultInterrupt
-                  0x0002f2                  _main
-                  0x00030c                  _config_timer1
-                  0x000330                  _config_ports
-                  0x00033e                  _led_1
-                  0x00035a                  _led_2
-                  0x000378                  _led_3
-                  0x000396                  _criar_tarefa
+                  0x0002d4                  __T1Interrupt
+                  0x0002f4                  __DefaultInterrupt
+                  0x0002fa                  _main
+                  0x00033c                  _config_timer1
+                  0x000360                  _config_ports
+                  0x00036e                  _led_1
+                  0x00038a                  _led_2
+                  0x0003a8                  _led_3
+                  0x0003c6                  _criar_tarefa
+                  0x0003fe                  _bubble_sort
+                  0x000488                  _prior_scheduler
+                  0x000490                  _rr_scheduler
 
 External Symbols in Program Memory (by name):
 
-                  0x0002ec                  __DefaultInterrupt
-                  0x0002c8                  __T1Interrupt
+                  0x0002f4                  __DefaultInterrupt
+                  0x0002d4                  __T1Interrupt
                   0x000252                  __data_init
                   0x000252                  __data_init_standard
                   0x00023c                  __psv_init
                   0x000200                  __resetPRI
-                  0x000330                  _config_ports
-                  0x00030c                  _config_timer1
-                  0x000396                  _criar_tarefa
-                  0x00033e                  _led_1
-                  0x00035a                  _led_2
-                  0x000378                  _led_3
-                  0x0002f2                  _main
+                  0x0003fe                  _bubble_sort
+                  0x000360                  _config_ports
+                  0x00033c                  _config_timer1
+                  0x0003c6                  _criar_tarefa
+                  0x00036e                  _led_1
+                  0x00038a                  _led_2
+                  0x0003a8                  _led_3
+                  0x0002fa                  _main
+                  0x000488                  _prior_scheduler
+                  0x000490                  _rr_scheduler
 
 Memory Configuration
 
@@ -171,7 +177,7 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                   0x000002          0x2 SHORT 0x0 ((ABSOLUTE (__reset) >> 0x10) & 0x7f)
                   0x000003          0x2 SHORT 0x0
 
-.text             0x000200         0xf2
+.text             0x000200         0xfa
  *(.init)
  .init            0x000200         0x4c c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt0_standard.o)
                   0x000200                  __resetPRI
@@ -182,19 +188,20 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libfx-elf.a
                   0x000252                  __data_init
  *(.user_init)
  *(.handle)
+ .handle          0x0002c8          0xc jump_table
  *(.isr*)
- .isr.text        0x0002c8         0x24 build/default/production/main.o
-                  0x0002c8                  __T1Interrupt
- .isr             0x0002ec          0x4 default_isr
-                  0x0002ec                  __DefaultInterrupt
+ .isr.text        0x0002d4         0x20 build/default/production/main.o
+                  0x0002d4                  __T1Interrupt
+ .isr             0x0002f4          0x4 default_isr
+                  0x0002f4                  __DefaultInterrupt
  *(.libc)
  *(.libm)
  *(.libdsp)
  *(.lib*)
  .libpic30_crt_start_mode
-                  0x0002f0          0x2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
-                  0x0002f0                  __crt_start_mode
-                  0x0002f0                  __crt_start_mode_normal
+                  0x0002f8          0x2 c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-pic30-elf.a(crt_start_mode_normal.Meo)
+                  0x0002f8                  __crt_start_mode
+                  0x0002f8                  __crt_start_mode_normal
 
 usercode
  *(usercode)
@@ -208,22 +215,22 @@ __CONFIG1
 .comment
  *(.comment)
 
-.debug_info       0x000000        0xc6e
+.debug_info       0x000000        0xd10
  *(.debug_info)
- .debug_info      0x000000        0xc6e build/default/production/main.o
+ .debug_info      0x000000        0xd10 build/default/production/main.o
  *(.gnu.linkonce.wi.*)
 
-.debug_abbrev     0x000000        0x1c2
+.debug_abbrev     0x000000        0x1ef
  *(.debug_abbrev)
- .debug_abbrev    0x000000        0x1c2 build/default/production/main.o
+ .debug_abbrev    0x000000        0x1ef build/default/production/main.o
 
-.debug_line       0x000000        0x13d
+.debug_line       0x000000        0x157
  *(.debug_line)
- .debug_line      0x000000        0x13d build/default/production/main.o
+ .debug_line      0x000000        0x157 build/default/production/main.o
 
-.debug_frame      0x000000         0xf6
+.debug_frame      0x000000        0x156
  *(.debug_frame)
- .debug_frame     0x000000         0xf6 build/default/production/main.o
+ .debug_frame     0x000000        0x156 build/default/production/main.o
 
 .debug_str        0x000000         0x59
  *(.debug_str)
@@ -236,10 +243,10 @@ __CONFIG1
  *(.debug_macinfo)
 
 .debug_pubnames
-                  0x000000         0xa9
+                  0x000000         0xde
  *(.debug_pubnames)
  .debug_pubnames
-                  0x000000         0xa9 build/default/production/main.o
+                  0x000000         0xde build/default/production/main.o
 
 .debug_ranges
  *(.debug_ranges)
@@ -826,6 +833,7 @@ LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libm-elf.a
 LOAD c:/program files/microchip/xc16/v2.10/bin/bin/../../lib\libc99-elf.a
 END GROUP
 OUTPUT(dist/default/production/Aula_24_08.production.elf elf32-pic30)
+LOAD jump_table
 LOAD default_isr
 LOAD data_init
 
@@ -857,15 +865,18 @@ __c30_signature
  .ivt._T1Interrupt
                   0x00001a          0x2 build/default/production/main.o
 
-.text             0x0002f2         0xdc
- .text            0x0002f2         0xdc build/default/production/main.o
-                  0x0002f2                  _main
-                  0x00030c                  _config_timer1
-                  0x000330                  _config_ports
-                  0x00033e                  _led_1
-                  0x00035a                  _led_2
-                  0x000378                  _led_3
-                  0x000396                  _criar_tarefa
+.text             0x0002fa        0x19c
+ .text            0x0002fa        0x19c build/default/production/main.o
+                  0x0002fa                  _main
+                  0x00033c                  _config_timer1
+                  0x000360                  _config_ports
+                  0x00036e                  _led_1
+                  0x00038a                  _led_2
+                  0x0003a8                  _led_3
+                  0x0003c6                  _criar_tarefa
+                  0x0003fe                  _bubble_sort
+                  0x000488                  _prior_scheduler
+                  0x000490                  _rr_scheduler
 
-.dinit            0x0003ce          0xe
- .dinit           0x0003ce          0xe data_init
+.dinit            0x000496          0xe
+ .dinit           0x000496          0xe data_init
