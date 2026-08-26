@@ -5,6 +5,9 @@
 
 #define FCY 16000000    // 16 MHz
 
+#define QUANTUM 100
+#define SIZE_READY_QUEUE 10
+
 typedef enum {READY = 0, RUNNING, WAITING} t_state;
 
 typedef void (*f_ptr)(void);
@@ -33,8 +36,9 @@ void led_3();
 
 
 // Variáveis globais
-tcb_t tarefas[3];
-int qtd_tasks = 0, task_running = 0;
+tcb_t tarefas[SIZE_READY_QUEUE];
+int qtd_tasks = 0, task_running = -1;
+int quantum = QUANTUM;
 
 int main()
 {
@@ -60,7 +64,13 @@ void __attribute__ ((interrupt, no_auto_psv)) _T1Interrupt(void)
 {
     IFS0bits.T1IF = 0;
     //task_running = (task_running+1) % qtd_tasks;
-    task_running = prior_scheduler();
+    // task_running = prior_scheduler();
+    
+    quantum--;
+    if (quantum == 0) {
+        task_running = rr_scheduler();
+        quantum = QUANTUM;
+    }
 }
 
 void config_timer1()
@@ -117,9 +127,7 @@ inline void bubble_sort()
 }
 
 int prior_scheduler()
-{
-    return 0;
-    
+{    
     bubble_sort();
     for (int i = 0; i < qtd_tasks; i++) {
         if (tarefas[i].estado == READY) return i;
@@ -130,5 +138,14 @@ int prior_scheduler()
 
 int rr_scheduler()
 {
+    int indice = task_running;
+    do {
+        indice = (indice + 1) % qtd_tasks;
+        
+        if (tarefas[indice].estado == READY) {
+            return indice;
+        }
+    } while (indice != task_running);
     
+    return -1;
 }
