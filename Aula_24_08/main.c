@@ -40,7 +40,7 @@ int main()
     LIGAR_TIMER1();
     
     while (1) {
-        tarefas[task_running]();
+        tarefas[task_running].tarefa();
     }
     
     return 0;
