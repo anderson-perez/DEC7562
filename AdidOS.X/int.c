@@ -1,33 +1,29 @@
-#include "timer.h"
+#include "int.h"
 #include "kernel.h"
 #include "scheduler.h"
+
 
 extern queue_t ReadyQueue;
 extern uint8_t task_running;
 extern uint16_t *task_running_tos;
 
 
-void config_timer_0(void)
+void config_int0()
 {
-    T1CONbits.TCS = 0;          // Clock interno 
-    T1CONbits.TCKPS = 0b01;     // Preescaler 1:8
-    IFS0bits.T1IF = 0;          // Flag
-    IEC0bits.T1IE = 1;          // Atividação da interrupção por timer
-    IPC0bits.T1IP = 4;          // Prioridade
-    PR1 = 1999;    
+    IEC0bits.INT0IE = 1;
+    IFS0bits.INT0IF = 0;
+    IPC0bits.INT0IP = 4;
 }
 
-void __attribute__ ((interrupt, no_auto_psv, naked)) _T1Interrupt()
+void __attribute__ ((interrupt, no_auto_psv, naked)) _INT0Interrupt()
 {
     SAVE_CONTEXT();
     
-    IFS0bits.T1IF = 0;
+    IFS0bits.INT0IF = 0;
     
     // Tarefa que está deixando a CPU
     ReadyQueue.tasks[task_running].sp = task_running_tos;
-    ReadyQueue.tasks[task_running].task_state = READY;
-    
-    delay_release();
+    //ReadyQueue.tasks[task_running].task_state = READY;
     
     task_running = scheduler();
     
@@ -37,4 +33,3 @@ void __attribute__ ((interrupt, no_auto_psv, naked)) _T1Interrupt()
     
     RESTORE_CONTEXT();    
 }
-
