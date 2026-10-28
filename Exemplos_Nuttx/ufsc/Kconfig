@@ -1,0 +1,29 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config UFSC
+	tristate "Exemplo aula SOE"
+	default n
+	---help---
+		Exemplo UFSC
+
+if UFSC
+
+config UFSC_PROGNAME
+	string "Nome do programa"
+	default "ufsc"
+	---help---
+		This is the name of the program that will be used when the NSH ELF
+		program is installed.
+
+config UFSC_PRIORITY
+	int "Prioridade do programa UFSC"
+	default 100
+
+config UFSC_STACKSIZE
+	int "Tamanho da pilha do programa"
+	default DEFAULT_TASK_STACKSIZE
+
+endif
