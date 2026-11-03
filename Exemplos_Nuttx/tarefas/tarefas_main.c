@@ -1,7 +1,7 @@
 #include <nuttx/config.h>
 #include <stdio.h>
 #include <pthread.h>
-#include <nuttx/sched.h>
+#include <sched.h>
 
 #define ON  1
 #define OFF 0
@@ -33,8 +33,8 @@ int main(int argc, FAR char *argv[])
   #endif
 
   #if EXEMPLO_TAREFAS == ON
-  task_create("T1", 100, 1024, tarefa_1, NULL);
-  task_create("T2", 100, 1024, tarefa_2, NULL);
+  task_create("T1", 100, 2048, tarefa_1, NULL);
+  task_create("T2", 100, 2048, tarefa_2, NULL);
 
   #endif
 

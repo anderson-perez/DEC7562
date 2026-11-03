@@ -55,20 +55,6 @@ tarefas_main.c.home.anderson.nuttxspace.apps.examples.tarefas.o: \
  /home/anderson/nuttxspace/nuttx/include/sched.h \
  /home/anderson/nuttxspace/nuttx/include/nuttx/spinlock_type.h \
  /home/anderson/nuttxspace/nuttx/include/pthread.h \
- /home/anderson/nuttxspace/nuttx/include/unistd.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/sched.h \
- /home/anderson/nuttxspace/nuttx/include/sys/resource.h \
- /home/anderson/nuttxspace/nuttx/include/sys/prctl.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/addrenv.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/wqueue.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/list_type.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/wdog.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/list.h \
- /home/anderson/nuttxspace/nuttx/include/arch/arch.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/event.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/tls.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/cache.h \
- /home/anderson/nuttxspace/nuttx/include/nuttx/atexit.h \
- /home/anderson/nuttxspace/nuttx/include/stdlib.h
+ /home/anderson/nuttxspace/nuttx/include/unistd.h
 # No files specified for dependency generation
 # No files specified for dependency generation
