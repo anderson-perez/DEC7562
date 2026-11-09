@@ -1,0 +1,29 @@
+#
+# For a description of the syntax of this configuration file,
+# see the file kconfig-language.txt in the NuttX tools repository.
+#
+
+config LIGA_LED
+	tristate "Liga led (gpio)"
+	default n
+	---help---
+		Exemplo de acionamento de uma porta digital
+
+if LIGA_LED
+
+config LIGA_LED_PROGNAME
+	string "Program name"
+	default "liga"
+	---help---
+		This is the name of the program that will be used when the NSH ELF
+		program is installed.
+
+config LIGA_LED_PRIORITY
+	int "Liga led prioridade"
+	default 100
+
+config LIGA_LED_STACKSIZE
+	int "Stack"
+	default DEFAULT_TASK_STACKSIZE
+
+endif
