@@ -1,0 +1,4 @@
+west:
+  command: /home/anderson/zephyrproject/.vevn/bin/west build -p always -b esp32_devkitc/esp32/procpu
+  topdir: /home/anderson/zephyrproject
+  version: 1.5.0
